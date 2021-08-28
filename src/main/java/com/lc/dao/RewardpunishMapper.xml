@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lc.dao.RewardpunishMapper">
+  <resultMap id="BaseResultMap" type="com.lc.entity.Rewardpunish">
+    <id column="rewardpunishid" jdbcType="BIGINT" property="rewardpunishid" />
+    <result column="nickname" jdbcType="VARCHAR" property="nickname" />
+    <result column="grade" jdbcType="INTEGER" property="grade" />
+    <result column="rewardpunish_state" jdbcType="INTEGER" property="rewardpunishState" />
+    <result column="rewardpunish_description" jdbcType="VARCHAR" property="rewardpunishDescription" />
+    <result column="rewardpunish_time" jdbcType="TIMESTAMP" property="rewardpunishTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    rewardpunishid, nickname, grade, rewardpunish_state, rewardpunish_description, rewardpunish_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from lc_rewardpunish
+    where rewardpunishid = #{rewardpunishid,jdbcType=BIGINT}
+  </select>
+
+  <select id="selectAll" resultMap="BaseResultMap">
+    select * from lc_rewardpunish
+  </select>
+
+  <select id="selectByNickname" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select * from lc_rewardpunish
+    where nickname = #{nickname,jdbcType=VARCHAR}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from lc_rewardpunish
+    where rewardpunishid = #{rewardpunishid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.lc.entity.Rewardpunish">
+    insert into lc_rewardpunish (rewardpunishid, nickname, grade, 
+      rewardpunish_state, rewardpunish_description, 
+      rewardpunish_time)
+    values (#{rewardpunishid,jdbcType=BIGINT}, #{nickname,jdbcType=VARCHAR}, #{grade,jdbcType=INTEGER}, 
+      #{rewardpunishState,jdbcType=INTEGER}, #{rewardpunishDescription,jdbcType=VARCHAR}, 
+      #{rewardpunishTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lc.entity.Rewardpunish">
+    insert into lc_rewardpunish
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="rewardpunishid != null">
+        rewardpunishid,
+      </if>
+      <if test="nickname != null">
+        nickname,
+      </if>
+      <if test="grade != null">
+        grade,
+      </if>
+      <if test="rewardpunishState != null">
+        rewardpunish_state,
+      </if>
+      <if test="rewardpunishDescription != null">
+        rewardpunish_description,
+      </if>
+      <if test="rewardpunishTime != null">
+        rewardpunish_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="rewardpunishid != null">
+        #{rewardpunishid,jdbcType=BIGINT},
+      </if>
+      <if test="nickname != null">
+        #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="grade != null">
+        #{grade,jdbcType=INTEGER},
+      </if>
+      <if test="rewardpunishState != null">
+        #{rewardpunishState,jdbcType=INTEGER},
+      </if>
+      <if test="rewardpunishDescription != null">
+        #{rewardpunishDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="rewardpunishTime != null">
+        #{rewardpunishTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lc.entity.Rewardpunish">
+    update lc_rewardpunish
+    <set>
+      <if test="nickname != null">
+        nickname = #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="grade != null">
+        grade = #{grade,jdbcType=INTEGER},
+      </if>
+      <if test="rewardpunishState != null">
+        rewardpunish_state = #{rewardpunishState,jdbcType=INTEGER},
+      </if>
+      <if test="rewardpunishDescription != null">
+        rewardpunish_description = #{rewardpunishDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="rewardpunishTime != null">
+        rewardpunish_time = #{rewardpunishTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where rewardpunishid = #{rewardpunishid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lc.entity.Rewardpunish">
+    update lc_rewardpunish
+    set nickname = #{nickname,jdbcType=VARCHAR},
+      grade = #{grade,jdbcType=INTEGER},
+      rewardpunish_state = #{rewardpunishState,jdbcType=INTEGER},
+      rewardpunish_description = #{rewardpunishDescription,jdbcType=VARCHAR},
+      rewardpunish_time = #{rewardpunishTime,jdbcType=TIMESTAMP}
+    where rewardpunishid = #{rewardpunishid,jdbcType=BIGINT}
+  </update>
+</mapper>

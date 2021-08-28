@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lc.dao.NoticeMapper">
+  <resultMap id="BaseResultMap" type="com.lc.entity.Notice">
+    <id column="noticeid" jdbcType="BIGINT" property="noticeid" />
+    <result column="notice_title" jdbcType="VARCHAR" property="noticeTitle" />
+    <result column="notice_content" jdbcType="VARCHAR" property="noticeContent" />
+    <result column="notice_time" jdbcType="TIMESTAMP" property="noticeTime" />
+    <result column="notice_img" jdbcType="VARCHAR" property="noticeImg" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    noticeid, notice_title, notice_content, notice_time, notice_img
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from lc_notice
+    where noticeid = #{noticeid,jdbcType=BIGINT}
+  </select>
+
+  <select id="selectAll" resultMap="BaseResultMap">
+    select * from lc_notice
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from lc_notice
+    where noticeid = #{noticeid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.lc.entity.Notice">
+    insert into lc_notice (noticeid, notice_title, notice_content, 
+      notice_time, notice_img)
+    values (#{noticeid,jdbcType=BIGINT}, #{noticeTitle,jdbcType=VARCHAR}, #{noticeContent,jdbcType=VARCHAR}, 
+      #{noticeTime,jdbcType=TIMESTAMP}, #{noticeImg,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lc.entity.Notice">
+    insert into lc_notice
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="noticeid != null">
+        noticeid,
+      </if>
+      <if test="noticeTitle != null">
+        notice_title,
+      </if>
+      <if test="noticeContent != null">
+        notice_content,
+      </if>
+      <if test="noticeTime != null">
+        notice_time,
+      </if>
+      <if test="noticeImg != null">
+        notice_img,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="noticeid != null">
+        #{noticeid,jdbcType=BIGINT},
+      </if>
+      <if test="noticeTitle != null">
+        #{noticeTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeContent != null">
+        #{noticeContent,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeTime != null">
+        #{noticeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="noticeImg != null">
+        #{noticeImg,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lc.entity.Notice">
+    update lc_notice
+    <set>
+      <if test="noticeTitle != null">
+        notice_title = #{noticeTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeContent != null">
+        notice_content = #{noticeContent,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeTime != null">
+        notice_time = #{noticeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="noticeImg != null">
+        notice_img = #{noticeImg,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where noticeid = #{noticeid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lc.entity.Notice">
+    update lc_notice
+    set notice_title = #{noticeTitle,jdbcType=VARCHAR},
+      notice_content = #{noticeContent,jdbcType=VARCHAR},
+      notice_time = #{noticeTime,jdbcType=TIMESTAMP},
+      notice_img = #{noticeImg,jdbcType=VARCHAR}
+    where noticeid = #{noticeid,jdbcType=BIGINT}
+  </update>
+</mapper>

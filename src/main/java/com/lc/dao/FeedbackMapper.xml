@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lc.dao.FeedbackMapper">
+  <resultMap id="BaseResultMap" type="com.lc.entity.Feedback">
+    <id column="feedbackid" jdbcType="BIGINT" property="feedbackid" />
+    <result column="feedback" jdbcType="VARCHAR" property="feedback" />
+    <result column="feedback_time" jdbcType="TIMESTAMP" property="feedbackTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    feedbackid, feedback, feedback_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from lc_feedback
+    where feedbackid = #{feedbackid,jdbcType=BIGINT}
+  </select>
+
+  <select id="selectAll" resultMap="BaseResultMap">
+    select * from lc_feedback
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from lc_feedback
+    where feedbackid = #{feedbackid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.lc.entity.Feedback">
+    insert into lc_feedback (feedbackid, feedback, feedback_time
+      )
+    values (#{feedbackid,jdbcType=BIGINT}, #{feedback,jdbcType=VARCHAR}, #{feedbackTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lc.entity.Feedback">
+    insert into lc_feedback
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="feedbackid != null">
+        feedbackid,
+      </if>
+      <if test="feedback != null">
+        feedback,
+      </if>
+      <if test="feedbackTime != null">
+        feedback_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="feedbackid != null">
+        #{feedbackid,jdbcType=BIGINT},
+      </if>
+      <if test="feedback != null">
+        #{feedback,jdbcType=VARCHAR},
+      </if>
+      <if test="feedbackTime != null">
+        #{feedbackTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lc.entity.Feedback">
+    update lc_feedback
+    <set>
+      <if test="feedback != null">
+        feedback = #{feedback,jdbcType=VARCHAR},
+      </if>
+      <if test="feedbackTime != null">
+        feedback_time = #{feedbackTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where feedbackid = #{feedbackid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lc.entity.Feedback">
+    update lc_feedback
+    set feedback = #{feedback,jdbcType=VARCHAR},
+      feedback_time = #{feedbackTime,jdbcType=TIMESTAMP}
+    where feedbackid = #{feedbackid,jdbcType=BIGINT}
+  </update>
+</mapper>

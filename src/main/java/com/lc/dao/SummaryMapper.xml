@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lc.dao.SummaryMapper">
+  <resultMap id="BaseResultMap" type="com.lc.entity.Summary">
+    <id column="summaryid" jdbcType="BIGINT" property="summaryid" />
+    <result column="userid" jdbcType="BIGINT" property="userid" />
+    <result column="summary_title" jdbcType="VARCHAR" property="summaryTitle" />
+    <result column="summary_detail" jdbcType="VARCHAR" property="summaryDetail" />
+    <result column="summary_time" jdbcType="TIMESTAMP" property="summaryTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    summaryid, userid, summary_title, summary_detail, summary_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from lc_summary
+    where summaryid = #{summaryid,jdbcType=BIGINT}
+  </select>
+
+  <select id="selectAllByUserid" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select * from lc_summary
+    where userid = #{userid,jdbcType=BIGINT}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from lc_summary
+    where summaryid = #{summaryid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.lc.entity.Summary">
+    insert into lc_summary (summaryid, userid, summary_title, 
+      summary_detail, summary_time)
+    values (#{summaryid,jdbcType=BIGINT}, #{userid,jdbcType=BIGINT}, #{summaryTitle,jdbcType=VARCHAR}, 
+      #{summaryDetail,jdbcType=VARCHAR}, #{summaryTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lc.entity.Summary">
+    insert into lc_summary
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="summaryid != null">
+        summaryid,
+      </if>
+      <if test="userid != null">
+        userid,
+      </if>
+      <if test="summaryTitle != null">
+        summary_title,
+      </if>
+      <if test="summaryDetail != null">
+        summary_detail,
+      </if>
+      <if test="summaryTime != null">
+        summary_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="summaryid != null">
+        #{summaryid,jdbcType=BIGINT},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="summaryTitle != null">
+        #{summaryTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="summaryDetail != null">
+        #{summaryDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="summaryTime != null">
+        #{summaryTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lc.entity.Summary">
+    update lc_summary
+    <set>
+      <if test="userid != null">
+        userid = #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="summaryTitle != null">
+        summary_title = #{summaryTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="summaryDetail != null">
+        summary_detail = #{summaryDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="summaryTime != null">
+        summary_time = #{summaryTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where summaryid = #{summaryid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lc.entity.Summary">
+    update lc_summary
+    set userid = #{userid,jdbcType=BIGINT},
+      summary_title = #{summaryTitle,jdbcType=VARCHAR},
+      summary_detail = #{summaryDetail,jdbcType=VARCHAR},
+      summary_time = #{summaryTime,jdbcType=TIMESTAMP}
+    where summaryid = #{summaryid,jdbcType=BIGINT}
+  </update>
+</mapper>

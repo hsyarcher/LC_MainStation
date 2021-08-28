@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lc.dao.CelebrityMapper">
+  <resultMap id="BaseResultMap" type="com.lc.entity.Celebrity">
+    <id column="celebrityid" jdbcType="BIGINT" property="celebrityid" />
+    <result column="celebrity_name" jdbcType="VARCHAR" property="celebrityName" />
+    <result column="celebrity_photo" jdbcType="VARCHAR" property="celebrityPhoto" />
+    <result column="celebrity_introduction" jdbcType="VARCHAR" property="celebrityIntroduction" />
+    <result column="celebrity_talk" jdbcType="VARCHAR" property="celebrityTalk" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    celebrityid, celebrity_name, celebrity_photo, celebrity_introduction, celebrity_talk
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from lc_celebrity
+    where celebrityid = #{celebrityid,jdbcType=BIGINT}
+  </select>
+
+  <select id="selectAll" resultMap="BaseResultMap">
+    select * from lc_celebrity
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from lc_celebrity
+    where celebrityid = #{celebrityid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.lc.entity.Celebrity">
+    insert into lc_celebrity (celebrityid, celebrity_name, celebrity_photo, 
+      celebrity_introduction, celebrity_talk)
+    values (#{celebrityid,jdbcType=BIGINT}, #{celebrityName,jdbcType=VARCHAR}, #{celebrityPhoto,jdbcType=VARCHAR}, 
+      #{celebrityIntroduction,jdbcType=VARCHAR}, #{celebrityTalk,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lc.entity.Celebrity">
+    insert into lc_celebrity
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="celebrityid != null">
+        celebrityid,
+      </if>
+      <if test="celebrityName != null">
+        celebrity_name,
+      </if>
+      <if test="celebrityPhoto != null">
+        celebrity_photo,
+      </if>
+      <if test="celebrityIntroduction != null">
+        celebrity_introduction,
+      </if>
+      <if test="celebrityTalk != null">
+        celebrity_talk,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="celebrityid != null">
+        #{celebrityid,jdbcType=BIGINT},
+      </if>
+      <if test="celebrityName != null">
+        #{celebrityName,jdbcType=VARCHAR},
+      </if>
+      <if test="celebrityPhoto != null">
+        #{celebrityPhoto,jdbcType=VARCHAR},
+      </if>
+      <if test="celebrityIntroduction != null">
+        #{celebrityIntroduction,jdbcType=VARCHAR},
+      </if>
+      <if test="celebrityTalk != null">
+        #{celebrityTalk,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lc.entity.Celebrity">
+    update lc_celebrity
+    <set>
+      <if test="celebrityName != null">
+        celebrity_name = #{celebrityName,jdbcType=VARCHAR},
+      </if>
+      <if test="celebrityPhoto != null">
+        celebrity_photo = #{celebrityPhoto,jdbcType=VARCHAR},
+      </if>
+      <if test="celebrityIntroduction != null">
+        celebrity_introduction = #{celebrityIntroduction,jdbcType=VARCHAR},
+      </if>
+      <if test="celebrityTalk != null">
+        celebrity_talk = #{celebrityTalk,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where celebrityid = #{celebrityid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lc.entity.Celebrity">
+    update lc_celebrity
+    set celebrity_name = #{celebrityName,jdbcType=VARCHAR},
+      celebrity_photo = #{celebrityPhoto,jdbcType=VARCHAR},
+      celebrity_introduction = #{celebrityIntroduction,jdbcType=VARCHAR},
+      celebrity_talk = #{celebrityTalk,jdbcType=VARCHAR}
+    where celebrityid = #{celebrityid,jdbcType=BIGINT}
+  </update>
+</mapper>

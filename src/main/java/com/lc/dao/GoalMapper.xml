@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lc.dao.GoalMapper">
+  <resultMap id="BaseResultMap" type="com.lc.entity.Goal">
+    <id column="goalid" jdbcType="BIGINT" property="goalid" />
+    <result column="goal_content" jdbcType="VARCHAR" property="goalContent" />
+    <result column="userId" jdbcType="BIGINT" property="userid" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="goal_time" jdbcType="TIMESTAMP" property="goalTime" />
+    <result column="goal_state" jdbcType="INTEGER" property="goalState" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    goalid, goal_content, userId, username, goal_time, goal_state
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from lc_goal
+    where goalid = #{goalid,jdbcType=BIGINT}
+  </select>
+
+  <select id="selectAll" resultMap="BaseResultMap">
+    select * from lc_goal where goal_state=1
+  </select>
+
+  <select id="selectByUserid" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select * from lc_goal
+    where userId = #{userid,jdbcType=BIGINT}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from lc_goal
+    where goalid = #{goalid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.lc.entity.Goal">
+    insert into lc_goal (goalid, goal_content, userId, 
+      username, goal_time, goal_state
+      )
+    values (#{goalid,jdbcType=BIGINT}, #{goalContent,jdbcType=VARCHAR}, #{userid,jdbcType=BIGINT}, 
+      #{username,jdbcType=VARCHAR}, #{goalTime,jdbcType=TIMESTAMP}, #{goalState,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lc.entity.Goal">
+    insert into lc_goal
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="goalid != null">
+        goalid,
+      </if>
+      <if test="goalContent != null">
+        goal_content,
+      </if>
+      <if test="userid != null">
+        userId,
+      </if>
+      <if test="username != null">
+        username,
+      </if>
+      <if test="goalTime != null">
+        goal_time,
+      </if>
+      <if test="goalState != null">
+        goal_state,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="goalid != null">
+        #{goalid,jdbcType=BIGINT},
+      </if>
+      <if test="goalContent != null">
+        #{goalContent,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="goalTime != null">
+        #{goalTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="goalState != null">
+        #{goalState,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lc.entity.Goal">
+    update lc_goal
+    <set>
+      <if test="goalContent != null">
+        goal_content = #{goalContent,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null">
+        userId = #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="goalTime != null">
+        goal_time = #{goalTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="goalState != null">
+        goal_state = #{goalState,jdbcType=INTEGER},
+      </if>
+    </set>
+    where goalid = #{goalid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lc.entity.Goal">
+    update lc_goal
+    set goal_content = #{goalContent,jdbcType=VARCHAR},
+      userId = #{userid,jdbcType=BIGINT},
+      username = #{username,jdbcType=VARCHAR},
+      goal_time = #{goalTime,jdbcType=TIMESTAMP},
+      goal_state = #{goalState,jdbcType=INTEGER}
+    where goalid = #{goalid,jdbcType=BIGINT}
+  </update>
+</mapper>
