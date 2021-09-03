@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lc.dao.PictureMapper">
+    <resultMap id="BaseResultMap" type="com.lc.entity.Picture">
+        <id column="picture_id" jdbcType="BIGINT" property="pictureId" />
+        <result column="picture_name" jdbcType="VARCHAR" property="pictureName" />
+    </resultMap>
+    <sql id="Base_Column_List">
+        picture_id, picture_name
+    </sql>
+    <select id="selectByName" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from lc_picture
+        where picture_name = #{pictureName,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from lc_picture
+        where picture_id = #{pictureId,jdbcType=BIGINT}
+    </delete>
+    <insert id="insert" parameterType="com.lc.entity.Picture">
+        insert into lc_picture (picture_id, picture_name)
+        values (#{pictureId,jdbcType=BIGINT}, #{pictureName,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.lc.entity.Picture">
+        insert into lc_picture
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pictureId != null">
+                picture_id,
+            </if>
+            <if test="pictureName != null">
+                picture_name,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="pictureId != null">
+                #{pictureId,jdbcType=BIGINT},
+            </if>
+            <if test="pictureName != null">
+                #{pictureName,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.lc.entity.Picture">
+        update lc_picture
+        <set>
+            <if test="pictureName != null">
+                picture_name = #{pictureName,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where picture_id = #{pictureId,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.lc.entity.Picture">
+        update lc_picture
+        set picture_name = #{pictureName,jdbcType=VARCHAR}
+        where picture_id = #{pictureId,jdbcType=BIGINT}
+    </update>
+
+</mapper>
