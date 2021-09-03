@@ -17,4 +17,5 @@ public interface CelebrityService {
 
     // 管理员删除名人信息
     ResultVO deleteCelebrity(Long celebrityid);
+
 }

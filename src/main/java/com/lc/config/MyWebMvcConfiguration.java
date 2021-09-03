@@ -15,6 +15,4 @@ public class MyWebMvcConfiguration implements WebMvcConfigurer {
         String filePath = System.getProperty("user.dir")+"/img/";
         registry.addResourceHandler("/img/**").addResourceLocations("file:"+filePath);
     }
-
-
 }
