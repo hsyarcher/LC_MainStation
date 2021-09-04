@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 
 
 @Service
@@ -19,12 +18,15 @@ public class PictureServiceImpl implements PictureService {
     private PictureMapper pictureMapper;
 
     @Override
-    public ResultVO uploadPicture(MultipartFile file) {
+    public ResultVO uploadPicture(MultipartFile file,Long id) {
         //只实现保存数据库的功能
         String filename = PictureUtils.uploadPicture(file);
 
         Picture picture = new Picture();
         picture.setPictureName(filename);
+        picture.setAlbumId(id);
+
+        pictureMapper.insert(picture);
 
         return ResultVOUtil.success(filename);
 
@@ -40,5 +42,10 @@ public class PictureServiceImpl implements PictureService {
             return ResultVOUtil.error("删除失败");
         }
 
+    }
+
+    @Override
+    public ResultVO getPicture(Long id) {
+        return ResultVOUtil.success(pictureMapper.selectByAlbumId(id));
     }
 }

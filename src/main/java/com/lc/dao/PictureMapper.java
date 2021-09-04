@@ -3,6 +3,8 @@ package com.lc.dao;
 import com.lc.entity.Picture;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 @Mapper
 public interface PictureMapper {
     int deleteByPrimaryKey(Long pictureId);
@@ -16,4 +18,6 @@ public interface PictureMapper {
     int updateByPrimaryKeySelective(Picture record);
 
     int updateByPrimaryKey(Picture record);
+
+    List<Picture> selectByAlbumId(Long id);
 }

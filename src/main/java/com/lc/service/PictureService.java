@@ -8,7 +8,9 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 
 public interface PictureService {
-    ResultVO uploadPicture(MultipartFile file);
+    ResultVO uploadPicture(MultipartFile file,Long id);
 
     ResultVO deletePicture(String name);
+
+    ResultVO getPicture(Long id);
 }

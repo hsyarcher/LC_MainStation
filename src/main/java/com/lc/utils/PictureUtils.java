@@ -15,7 +15,7 @@ import java.io.File;
 public class PictureUtils {
 
     public static String uploadPicture(MultipartFile file) {
-        String filename = file.getOriginalFilename();
+        String filename = String.valueOf(System.currentTimeMillis());
         String filePath = System.getProperty("user.dir")+"/img";
         if (!new File(filePath).exists()){
             new File(filePath).mkdirs();

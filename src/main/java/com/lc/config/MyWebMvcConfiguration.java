@@ -11,8 +11,9 @@ public class MyWebMvcConfiguration implements WebMvcConfigurer {
     //配置本地文件映射到url上
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        //System.out.println("图片配置生效");
+        System.out.println("图片配置生效");
         String filePath = System.getProperty("user.dir")+"/img/";
+        System.out.println(filePath);
         registry.addResourceHandler("/img/**").addResourceLocations("file:"+filePath);
     }
 }
